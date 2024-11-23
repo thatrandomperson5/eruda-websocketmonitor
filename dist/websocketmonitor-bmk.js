@@ -18,7 +18,8 @@ bookmarklet.config = {
       url: "https://cdn.jsdelivr.net/gh/thatrandomperson5/eruda-websocketmonitor@master/src/websocketmonitor.js",
       exports: ["WebSocketMonitor"]
     }
-  }
+  },
+  packageOrder: ["eruda", "censor", "objectObserver", "webSocketMonitor"]
 }
 
 bookmarklet.run = (ctx) => {
