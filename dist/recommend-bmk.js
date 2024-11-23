@@ -34,12 +34,13 @@ bookmarklet.run = (ctx) => {
           let e = doc.createElement("script");
           e.textContent = atob(value);
           doc.head.prepend(e);
-        }
+        } 
+        // Reverse order
+        makeScript(ctx.prefetch.webSocketMonitor);
         makeScript(ctx.prefetch.eruda);
         makeScript(ctx.prefetch.censor);
         makeScript(ctx.prefetch.objectObserver);
 
-        makeScript(ctx.prefetch.webSocketMonitor);
       },
     },
   );
