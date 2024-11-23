@@ -19,6 +19,7 @@ bookmarklet.config = {
 };
 
 bookmarklet.run = (ctx) => {
+  try {
   const softRefresh = ctx.packages.ijtool.softRefresh;
 
   softRefresh(
@@ -42,4 +43,7 @@ bookmarklet.run = (ctx) => {
       },
     },
   );
+  } catch (error) {
+    console.error(error)
+  }
 };
