@@ -48,7 +48,7 @@ class WebSocketMonitor extends eruda.Tool {
   changeHandle(changes) {
     changes.forEach((change) => {
       if (change.path.length === 3 && change.path[1] === "events") {
-        if (change.type === "insert" && change.path[0] === this.currentSocket) {
+        if (change.type === "insert" && change.path[0] === this.currentSocket && !this.viewingArchive) {
           if (change.object.length > this.settings.maxCacheLength) {
             change.object.splice(100)
             this.refreshGrid()
