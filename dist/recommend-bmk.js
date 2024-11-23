@@ -8,9 +8,11 @@ bookmarklet.config = {
     },
   },
   prefetch: {
-    censor: "https://cdn.jsdelivr.net/gh/thatrandomperson5/censorjs@4945279/src/censor.js",
+    censor:
+      "https://cdn.jsdelivr.net/gh/thatrandomperson5/censorjs@4945279/src/censor.js",
     eruda: "https://cdn.jsdelivr.net/npm/eruda",
-    objectObserver: "https://cdn.gisthostfor.me/thatrandomperson5-lkuPg5hRm9-object-observer.min.js",
+    objectObserver:
+      "https://cdn.gisthostfor.me/thatrandomperson5-lkuPg5hRm9-object-observer.min.js",
     webSocketMonitor:
       "https://cdn.jsdelivr.net/gh/thatrandomperson5/eruda-websocketmonitor@master/src/websocketmonitor.js",
   },
@@ -18,10 +20,6 @@ bookmarklet.config = {
 
 bookmarklet.run = (ctx) => {
   const softRefresh = ctx.packages.ijtool.softRefresh;
-  var resources = [];
-  for (const [key, value] of Object.entries(ctx.prefetch)) {
-    resources.push("data:text/javascript;base64," + value);
-  }
 
   softRefresh(
     () => {
@@ -29,7 +27,19 @@ bookmarklet.run = (ctx) => {
       eruda.add(WebSocketMonitor.add());
     },
     {
-      resources: resources,
+      resources: [],
+      processor: (doc) => {
+        function makeScript(value) {
+          let e = doc.createElement("script");
+          e.textContent = atob(value);
+          doc.head.prepend(e);
+        }
+        makeScript(ctx.prefetch.eruda);
+        makeScript(ctx.prefetch.censor);
+        makeScript(ctx.prefetch.objectObserver);
+
+        makeScript(ctx.prefetch.webSocketMonitor);
+      },
     },
   );
 };
