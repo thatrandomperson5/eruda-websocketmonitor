@@ -29,6 +29,7 @@ bookmarklet.run = (ctx) => {
     },
     {
       resources: [],
+      useCurrentState: true,
       processor: (doc) => {
         function makeScript(value) {
           let e = doc.createElement("script");
